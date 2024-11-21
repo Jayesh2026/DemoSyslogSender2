@@ -1,0 +1,67 @@
+# services:
+#   syslog-sender:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "8081:8081"
+#     depends_on:
+#       - otel-collector
+#     environment:
+#       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+#       OTEL_SERVICE_NAME: demo-syslog-sender
+#     networks:
+#       - otel-network
+
+#   otel-collector:
+#     image: otel/opentelemetry-collector-contrib:latest
+#     command: ["--config=/etc/docker/collector/otel-collector-config.yaml"]
+#     volumes:
+#       - ./docker/collector/otel-collector-config.yaml:/etc/docker/collector/otel-collector-config.yaml
+#     ports:
+#       - "4317:4317"   # OTLP gRPC receiver
+#       - "4318:4318"   # OTLP HTTP receiver
+#       - "54526:54526" # Syslog TCP receiver
+#     networks:
+#       - otel-network
+
+# networks:
+#   otel-network:
+#     driver: bridge
+
+
+
+
+services:
+  demo-syslog-sender:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      - otel-collector
+    environment:
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+      OTEL_SERVICE_NAME: demo-syslog-sender
+    networks:
+      - otel-network
+
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:latest
+    command: ["--config=/etc/docker/collector/otel-collector-config.yaml"]
+    volumes:
+      - ./docker/collector/otel-collector-config.yaml:/etc/docker/collector/otel-collector-config.yaml
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+      - "514:514" # Syslog TCP
+      # - "1777:1777"   # pprof extension
+      # - "55679:55679" # zpages extension
+    networks:
+      - otel-network
+
+networks:
+  otel-network:
+    driver: bridge

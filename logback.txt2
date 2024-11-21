@@ -1,0 +1,51 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+
+<!--
+<configuration>
+    Console appender
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    Custom Syslog appender
+    <appender name="SYSLOG" class="com.senderSyslog.logging.SyslogAppender">
+        The appender will be autowired with SyslogService
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="SYSLOG" />
+    </root>
+</configuration> -->
+
+
+<!-- <configuration>
+    <property name="APP_NAME" value="my-spring-app"/>
+    <property name="HOSTNAME" value="${HOSTNAME:-unknown}"/>
+    
+    <appender name="SYSLOG" class="ch.qos.logback.classic.net.SyslogAppender">
+        <syslogHost>localhost</syslogHost>
+        <port>514</port>
+        <facility>LOCAL0</facility>
+        Include the application name
+        <suffixPattern>${APP_NAME}: [%thread] %logger %msg%n</suffixPattern>
+        Enable RFC 5424 format 
+        <throwableExcluded>false</throwableExcluded>
+        Send messages in RFC 5424 format
+        <syslogStart>1 %date{ISO8601} ${HOSTNAME} ${APP_NAME} ${PID:- } - -</syslogStart>
+    </appender>
+
+    Console appender for debugging 
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="SYSLOG" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration> -->
