@@ -57,11 +57,34 @@ services:
       - "4317:4317"   # OTLP gRPC receiver
       - "4318:4318"   # OTLP HTTP receiver
       - "514:514" # Syslog TCP
-      # - "1777:1777"   # pprof extension
-      # - "55679:55679" # zpages extension
     networks:
       - otel-network
 
 networks:
   otel-network:
     driver: bridge
+
+
+
+
+
+
+# services:
+#   syslog:
+#     image: balabit/syslog-ng:latest
+#     container_name: syslog
+#     entrypoint: /usr/sbin/syslog-ng
+#     command: "-F -edv"
+#     ports:
+#       - 514:514
+#       - 601:601
+#   app:
+#     build:
+#       context: ./
+#     container_name: app
+#     environment:
+#       SPRING_PROFILES_ACTIVE: docker
+#     ports:
+#       - 8081:8081
+#     depends_on:
+#       - syslog
